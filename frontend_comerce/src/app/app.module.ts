@@ -8,6 +8,7 @@ import { ProductosComponent } from './productos/productos.component';
 import { ProductosService } from './productos/productos.service';
 import { RouterModule, Routes} from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { DetalleComponent } from './productos/detalle/detalle.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/productos', pathMatch: 'full'},
@@ -20,6 +21,7 @@ const routes: Routes = [
     HeaderComponent,
     FooterComponent,
     ProductosComponent,
+    DetalleComponent,
   ],
   imports: [
     BrowserModule,

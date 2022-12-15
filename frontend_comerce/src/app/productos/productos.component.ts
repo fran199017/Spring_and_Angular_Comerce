@@ -22,9 +22,16 @@ export class ProductosComponent implements OnInit {
     );   
   }
 
-  goProduct(){
+  goProduct(producto : Producto){
+    console.log(producto);
+    let navigationExtras: NavigationExtras = {
+      state: {
+        producto: producto,
+      },
+      queryParams: {},
+    };
 
-    this.router.navigate(["/"]);
+    this.router.navigate(["/detalle/" + producto.id], navigationExtras);
   }
 
 }
