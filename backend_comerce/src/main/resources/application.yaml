@@ -1,0 +1,28 @@
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 30
+    accesslog:
+      enabled: false
+    protocol-header: x-forwarded-proto
+
+debug: true
+spring:
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+  h2:
+    console.enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  datasource:
+    url : jdbc:h2:mem:mydb;
+    driverClassName: org.h2.Driver
+    name:
+    username: sa
+    password:
+    hikari:
+      auto-commit: false
+flyway:
+  baseline-on-migrate: true
