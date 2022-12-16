@@ -1,6 +1,30 @@
 <div class="card border-primary mb-3">
-    <div class="card-header">Proveedor</div>
+    <div class="card-header">Datos generales de {{producto.name}}</div>
     <div class="card-body text-primary">
-        
+        <h5 class="card-title">Id: {{producto.id}}</h5>
+        <p class="card-text">Nombre: {{producto.name}}</p> 
+        <p class="card-text">Descripción: {{producto.description}}</p>
+    </div>
+  </div>
+
+  <div class="card border-primary mb-3">
+    <div class="card-header">Detalle</div>
+    <div class="card-body text-primary">
+        <h5 class="card-title">Id: {{producto.detalleProducto.id}}</h5>
+        <p class="card-text">Peso: {{producto.detalleProducto.peso}}</p> 
+        <p class="card-text">Material: {{producto.detalleProducto.material}}</p> 
+        <p class="card-text">Impuesto: {{producto.detalleProducto.impuesto}}</p> 
+        <p class="card-text">Coste: {{producto.detalleProducto.cost}}</p> 
+    </div>
+  </div>
+
+  <div class="card border-primary mb-3">
+    <div class="card-header">Proveedor {{producto.proveedor.nombre}}</div>
+    <div class="card-body text-primary">
+        <h5 class="card-title">Id: {{producto.proveedor.id}}</h5>
+        <p class="card-text">Nombre: {{producto.proveedor.nombre}}</p> 
+        <p class="card-text">Dirección: {{producto.proveedor.direccion}}</p>
+        <p class="card-text">Email: {{producto.proveedor.email}}</p> 
+        <p class="card-text">Tlf: {{producto.proveedor.telefono}}</p>   
     </div>
   </div>

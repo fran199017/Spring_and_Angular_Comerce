@@ -43,7 +43,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping(value = "/product/{id}")
+    @GetMapping(value = "/products/{id}")
     @ApiOperation(value = "Get one product")
     public ResponseEntity<?> getProduct(@PathVariable @ApiParam(value = "Product's id", required = true) int id) {
         try {

@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent} from './footer/footer.component';
 import { ProductosComponent } from './productos/productos.component';
-import { ProductosService } from './productos/productos.service';
+import { ProductosService } from './shared/services/productos.service';
 import { RouterModule, Routes} from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { DetalleComponent } from './productos/detalle/detalle.component';

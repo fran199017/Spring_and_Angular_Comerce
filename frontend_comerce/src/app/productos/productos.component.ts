@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Producto } from './productos';
-import { ProductosService } from './productos.service';
+import { ProductosService } from '../shared/services/productos.service';
 import { Router, NavigationExtras} from "@angular/router";
 
 @Component({
@@ -24,11 +24,11 @@ export class ProductosComponent implements OnInit {
 
   goProduct(producto : Producto){
     console.log(producto);
+    var id = producto.id;
     let navigationExtras: NavigationExtras = {
       state: {
-        producto: producto,
-      },
-      queryParams: {},
+        id: id,
+      }
     };
 
     this.router.navigate(["/detalle/1"], navigationExtras);

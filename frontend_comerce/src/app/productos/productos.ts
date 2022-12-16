@@ -5,7 +5,7 @@ export class Producto {
   id!: number;
   name!: string;
   description!:string;
-  detalleproducto!: DetalleProducto;
+  detalleProducto!: DetalleProducto;
   proveedor!: Proveedor
 
 }
