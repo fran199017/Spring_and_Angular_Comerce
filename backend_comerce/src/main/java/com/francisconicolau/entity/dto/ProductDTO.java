@@ -1,15 +1,18 @@
 package com.francisconicolau.entity.dto;
 
 
+import com.francisconicolau.entity.DetalleProducto;
+import com.francisconicolau.entity.Proveedor;
+
 public class ProductDTO {
 
     String name;
 
     String description;
 
-    float price;
+    DetalleProducto detalleProducto;
 
-    String imagePath;
+    Proveedor proveedor;
 
     public String getName() {
         return name;
@@ -27,29 +30,19 @@ public class ProductDTO {
         this.description = description;
     }
 
-    public float getPrice() {
-        return price;
+    public DetalleProducto getDetalleProducto() {
+        return detalleProducto;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    public void setDetalleProducto(DetalleProducto detalleProducto) {
+        this.detalleProducto = detalleProducto;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public Proveedor getProveedor() {
+        return proveedor;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductDTO{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", imagePath='" + imagePath + '\'' +
-                '}';
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
     }
 }

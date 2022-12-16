@@ -9,6 +9,7 @@
           <th>id</th>
           <th>nombre</th>
           <th>Descripción</th>
+          <th>Proveedor</th>
           <th style="width: 400px;">Acción</th>
         </tr>
       </thead>
@@ -19,13 +20,18 @@
           <td>{{ producto.description }}</td>
           <td>{{ producto.proveedor.nombre }}</td>
           <td>
-            <a style="color: white; margin: 3px;" class="btn btn-sm btn-primary" (click)="goProduct(producto.id)">Ver detalle</a>
+            <a style="color: white; margin: 3px;" class="btn btn-sm btn-info" (click)="goProduct(producto.id)">Ver detalle</a>
             <a style="color: white; margin: 3px;" class="btn btn-sm btn-warning" >Modificar producto</a>
             <a style="color: white; margin: 3px;" class="btn btn-sm btn-danger" (click)="deleteProduct(producto.id)">Borrar producto</a>
           </td>
         </tr>
       </tbody>
     </table>
-
   </div>
+  <div class="card-footer text-muted">
+    <button class="btn btn-primary" (click)="addProduct()">Añadir producto</button>
+  </div>
+</div>
+<div class="" *ngIf="showForm">
+  Hola
 </div>

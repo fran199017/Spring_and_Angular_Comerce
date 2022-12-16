@@ -1,6 +1,8 @@
 package com.francisconicolau.controllers;
 
 
+import com.francisconicolau.entity.Product;
+import com.francisconicolau.entity.dto.ProductDTO;
 import com.francisconicolau.service.ProductService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -23,6 +25,8 @@ public class ProductController {
     private static final Logger log = LoggerFactory.getLogger(ProductController.class);
 
     private static final String DELETE_SUCCESFULL ="delete successfull";
+    private static final String ERROR_CREATING ="Error creating product";
+    private static final String PRODUCT_CREATED ="Product created";
 
     private Map<String, Object> mapResponse = new HashMap<>();
     private ProductService productService;
@@ -30,6 +34,25 @@ public class ProductController {
     @Autowired
     public ProductController(ProductService productService) {
         this.productService = productService;
+    }
+
+    @PostMapping(value = "/products")
+    @ApiOperation(value = "Create product")
+    public ResponseEntity<?> createProduct(@RequestBody ProductDTO productDTO) {
+        try {
+            //TODO: Aqui le tenemos q pasar los Ids de proveedor y detalle(crearlo o no)
+            var product = productService.createProduct(productDTO);
+
+            mapResponse.put("message",PRODUCT_CREATED);
+            mapResponse.put("response", product);
+
+            return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            mapResponse.put("message", e.getMessage());
+            mapResponse.put("response", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(mapResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping(value = "/products")

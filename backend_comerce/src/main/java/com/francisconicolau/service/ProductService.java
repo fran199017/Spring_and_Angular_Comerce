@@ -1,8 +1,11 @@
 package com.francisconicolau.service;
 
 
+import com.francisconicolau.entity.DetalleProducto;
 import com.francisconicolau.entity.Product;
+import com.francisconicolau.entity.dto.ProductDTO;
 import com.francisconicolau.repository.ProductRepository;
+import com.francisconicolau.repository.ProveedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,7 @@ public class ProductService {
 
 
     private ProductRepository productRepository;
+    private ProveedorRepository proveedorRepository;
 
     @Autowired
     public ProductService(ProductRepository productRepository) {
@@ -21,9 +25,7 @@ public class ProductService {
 
 
     public Iterable<Product> getProducts() {
-        Iterable<Product> products = productRepository.findAll();
-        return products;
-
+        return productRepository.findAll();
     }
 
     public Product getProductById(int id) {
@@ -39,14 +41,18 @@ public class ProductService {
         if (product != null){
             productRepository.delete(product);
         }
-
     }
 
-    public void updateProduct(Product products) {
-        productRepository.save(products);
-    }
+    public Product createProduct(ProductDTO productDTO) {
+        Product product = new Product();
 
-    public void createProduct(Product product) {
-        productRepository.save(product);
+        product.setName(productDTO.getName());
+        product.setDescription(productDTO.getDescription());
+        var detalleProducto = productDTO.getDetalleProducto();
+        var proveedor = productDTO.getProveedor();
+        product.setDetalleProducto(detalleProducto);
+        product.setProveedor(proveedor);
+
+        return productRepository.save(product);
     }
 }
