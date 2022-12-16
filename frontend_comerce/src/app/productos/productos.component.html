@@ -19,9 +19,9 @@
           <td>{{ producto.description }}</td>
           <td>{{ producto.proveedor.nombre }}</td>
           <td>
-            <a style="color: white; margin: 3px;" class="btn btn-sm btn-primary" (click)="goProduct(producto)">Ver detalle</a>
+            <a style="color: white; margin: 3px;" class="btn btn-sm btn-primary" (click)="goProduct(producto.id)">Ver detalle</a>
             <a style="color: white; margin: 3px;" class="btn btn-sm btn-warning" >Modificar producto</a>
-            <a style="color: white; margin: 3px;" class="btn btn-sm btn-danger" >Borrar producto</a>
+            <a style="color: white; margin: 3px;" class="btn btn-sm btn-danger" (click)="deleteProduct(producto.id)">Borrar producto</a>
           </td>
         </tr>
       </tbody>

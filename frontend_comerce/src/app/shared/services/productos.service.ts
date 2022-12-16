@@ -23,4 +23,15 @@ export class ProductosService {
     );
   }
 
+  deleteProducto(id : number) {
+    return this.http.delete(this.urlEndPoint + "/" + id ).subscribe({
+      next: data =>{
+        console.log(data)
+      },
+      error : error =>{
+        console.log(error)
+      }
+    });
+  }
+
 }

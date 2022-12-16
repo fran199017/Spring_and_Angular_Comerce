@@ -22,9 +22,7 @@ export class ProductosComponent implements OnInit {
     );   
   }
 
-  goProduct(producto : Producto){
-    console.log(producto);
-    var id = producto.id;
+  goProduct(id : number){
     let navigationExtras: NavigationExtras = {
       state: {
         id: id,
@@ -33,5 +31,18 @@ export class ProductosComponent implements OnInit {
 
     this.router.navigate(["/detalle/1"], navigationExtras);
   }
+
+  deleteProduct(id : number){
+    this.productosService.deleteProducto(id);
+    this.reloadComponent();
+  }
+
+      //Reload same URL.
+      reloadComponent() {
+        let currentUrl = this.router.url;
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = "reload";
+        this.router.navigate([currentUrl]);
+      }
 
 }
