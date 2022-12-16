@@ -1,11 +1,13 @@
 package com.francisconicolau.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "detalle_producto")
+@JsonSerialize
 public class DetalleProducto {
 
     @Id

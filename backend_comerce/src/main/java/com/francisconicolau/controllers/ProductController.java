@@ -45,7 +45,7 @@ public class ProductController {
 
     @GetMapping(value = "/product/{id}")
     @ApiOperation(value = "Get one product")
-    public ResponseEntity<?> getProduct(@PathVariable @ApiParam(value = "Game's id", required = true) int id) {
+    public ResponseEntity<?> getProduct(@PathVariable @ApiParam(value = "Product's id", required = true) int id) {
         try {
             var product = productService.getProductById(id);
             if (product != null){
@@ -56,92 +56,5 @@ public class ProductController {
             log.error(e.getMessage(), e);
             return null;
         }
-    }
-
-    @GetMapping(value = "/product")
-    public ModelAndView productsById(int id) {
-        try {
-            Product product = productService.getProductById(id);
-            if (product != null){
-                ModelAndView model = new ModelAndView();
-                model.setViewName("product");
-                model.addObject("product", product);
-                return model;
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        return null;
-    }
-
-
-    @DeleteMapping(value = "/product")
-    public ModelAndView deleteProduct(int id) {
-        try {
-            productService.deleteProduct(id);
-            ModelAndView model = new ModelAndView();
-            model.setViewName("index");
-            return model;
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        return null;
-    }
-
-    @GetMapping(value = "/modifyproduct")
-    public ModelAndView goUpdate(int id) {
-        try {
-            ModelAndView model = new ModelAndView();
-            model.setViewName("modifyproduct");
-            Product product = productService.getProductById(id);
-            if (product != null){
-                model.addObject("product", product);
-                return model;
-            }
-
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        return null;
-    }
-
-    @PostMapping(value = "/process_update")
-    public ModelAndView processUpdate(Product product) {
-        try {
-            log.info("Product {}", product);
-            productService.updateProduct(product);
-            ModelAndView model = new ModelAndView("redirect:index");
-            return model;
-
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        return null;
-    }
-
-    @GetMapping(value = "/process_create")
-    public ModelAndView processCreateProduct() {
-        try {
-            ModelAndView model = new ModelAndView("process_create");
-            model.addObject("product", new Product());
-            return model;
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        return null;
-    }
-
-    @PostMapping(value = "/create_product")
-    public ModelAndView createProduct(Product product) {
-        try {
-            log.info("Product {}", product);
-            productService.createProduct(product);
-            ModelAndView model = new ModelAndView("redirect:index");
-            return model;
-
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        return null;
     }
 }

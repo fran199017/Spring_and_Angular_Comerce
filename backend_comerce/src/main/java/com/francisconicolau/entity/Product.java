@@ -22,6 +22,19 @@ public class Product {
     @JoinColumn(name = "detalle_producto_id")
     private DetalleProducto detalleProducto;
 
+    @ManyToOne
+    @JoinColumn(name = "proveedor_id")
+    private Proveedor proveedor;
+
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    public Proveedor getProveedor() {
+        return proveedor;
+    }
+
+
     public DetalleProducto getDetalleProducto() {
         return detalleProducto;
     }
@@ -61,6 +74,7 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", detalleProducto=" + detalleProducto +
+                ", proveedor=" + proveedor +
                 '}';
     }
 }
