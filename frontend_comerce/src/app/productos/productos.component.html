@@ -32,6 +32,49 @@
     <button class="btn btn-primary" (click)="addProduct()">Añadir producto</button>
   </div>
 </div>
-<div class="" *ngIf="showForm">
-  Hola
+<div class="formulario" *ngIf="showForm">
+
+    <form [formGroup]="productDataForm" (ngSubmit)="onSubmit(productDataForm)">
+      <div class="grid">
+      <div class="form-group">
+        <label for="name">Nombre </label>
+        <input class="form-control" id="name" type="text" formControlName="name" >
+      </div>
+  
+      <div class="form-group">
+        <label for="description">Descripción </label>
+        <input class="form-control" id="description" type="text" formControlName="description">
+      </div>
+  
+      <div class="form-group">
+        <label for="material">Material </label>
+        <input class="form-control" id="material" type="text" formControlName="material">
+      </div>
+  
+      <div class="form-group">
+        <label for="peso">Peso </label>
+        <input class="form-control" id="peso" type="text" formControlName="peso">
+      </div>
+  
+      <div class="form-group">
+        <label for="cost">Coste </label>
+        <input class="form-control" id="cost" type="text" formControlName="cost">
+      </div>
+  
+      <div class="form-group">
+        <label for="impuesto">Impuesto </label>
+        <input class="form-control" id="impuesto" type="text" formControlName="impuesto">
+      </div>
+  
+      <div class="form-group">
+        <select formControlName="proveedor" (change)="onChangeSelect($event)" class="form-select" aria-label="Default select example">
+          <option value="{{proveedor.id}}" *ngFor="let proveedor of proveedores" selected>{{proveedor.nombre}}</option>
+        </select>
+      </div>
+    </div>
+      <button class="btn btn-primary mt-3" type="submit">Guardar formulario</button>
+    </form>
+
+
+  
 </div>

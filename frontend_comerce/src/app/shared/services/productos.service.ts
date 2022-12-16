@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Producto } from '../../productos/productos';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 
@@ -25,6 +25,15 @@ export class ProductosService {
 
   deleteProducto(id : number) : Observable<Map<string, object>> {
     return this.http.delete(this.urlEndPoint + "/" + id ).pipe(
+      map(response => response as Map<string, object>)
+    );
+  }
+
+  crearProducto(productData: any) : Observable<Map<string, object>> {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    }
+    return this.http.post(this.urlEndPoint, productData, httpOptions).pipe(
       map(response => response as Map<string, object>)
     );
   }

@@ -1,7 +1,6 @@
 package com.francisconicolau.service;
 
 
-import com.francisconicolau.entity.DetalleProducto;
 import com.francisconicolau.entity.Product;
 import com.francisconicolau.entity.dto.ProductDTO;
 import com.francisconicolau.repository.ProductRepository;
@@ -16,11 +15,14 @@ public class ProductService {
 
 
     private ProductRepository productRepository;
-    private ProveedorRepository proveedorRepository;
+    private DetalleProductoService detalleProductoService;
+    private ProveedorService proveedorService;
 
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, DetalleProductoService detalleProductoService, ProveedorService proveedorService) {
         this.productRepository = productRepository;
+        this.detalleProductoService = detalleProductoService;
+        this.proveedorService = proveedorService;
     }
 
 
@@ -48,8 +50,12 @@ public class ProductService {
 
         product.setName(productDTO.getName());
         product.setDescription(productDTO.getDescription());
-        var detalleProducto = productDTO.getDetalleProducto();
-        var proveedor = productDTO.getProveedor();
+
+        var detalleProductoDTO = productDTO.getDetalleProductoDTO();
+        var detalleProducto = detalleProductoService.createDetalleProducto(detalleProductoDTO);
+
+        var proveedorId = productDTO.getProveedorId();
+        var proveedor = proveedorService.getProveedorById(proveedorId);
         product.setDetalleProducto(detalleProducto);
         product.setProveedor(proveedor);
 

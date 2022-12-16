@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Producto } from './productos';
 import { ProductosService } from '../shared/services/productos.service';
+import { ProveedoresService } from '../shared/services/proveedores.service';
 import { Router, NavigationExtras} from "@angular/router";
 import { ToastrService } from 'ngx-toastr';
-import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
+import { FormGroup, FormControl, ReactiveFormsModule, Validators } from "@angular/forms";
+import { Proveedor } from './proveedor/proveedor';
+import { ProductoDTO } from './productoDTO';
+import { DetalleProducto } from './detalle/detalleproducto';
 
 @Component({
   selector: 'app-productos',
@@ -12,30 +16,43 @@ import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms"
 })
 export class ProductosComponent implements OnInit {
 
+  constructor(
+    private productosService: ProductosService, 
+    private router : Router,
+    private toast : ToastrService,
+    private proveedorService : ProveedoresService
+  ) {}
+
   productos: Producto[] | undefined;
+  productoDTO !: ProductoDTO
+  proveedores: Proveedor[] | undefined;
+  
   responseMap : Map<string, object> = new Map<string, object>
 
   //Form de creacion de producto
   showForm : boolean = false;
-  newProduct !: Producto;
-  model = new Producto();
+
   productDataForm = new FormGroup({
-    firstName: new FormControl("", [Validators.required]),
-    lastName: new FormControl("", [Validators.required]),
+    name: new FormControl("Camiseta", [Validators.required]),
+    description: new FormControl("Camiseta blanca con lunares", [Validators.required]),
+    proveedor: new FormControl(2, [Validators.required]),
+    // DetalleProducto
+    material: new FormControl("Tela", [Validators.required]),
+    peso: new FormControl("1.25", [Validators.required]),
+    cost: new FormControl("15.99", [Validators.required]),
+    impuesto: new FormControl("5", [Validators.required]),
   });
 
-  constructor(
-      private productosService: ProductosService, 
-      private router : Router,
-      private toast : ToastrService,
-    ) { }
 
-  ngOnInit() {
+
+  async ngOnInit() {
+    this.proveedorService.getProveedores().subscribe(
+      proveedores => this.proveedores = proveedores
+      );
+
     this.productosService.getProductos().subscribe(
-      productos =>{
-        this.productos = productos;
-      } 
-    );   
+      productos =>this.productos = productos
+    );
   }
 
   goProduct(id : number){
@@ -56,11 +73,12 @@ export class ProductosComponent implements OnInit {
         for (const [key, value] of Object.entries(this.responseMap)) {
           if(key == "message"){
             this.mostrarToast(value);
+            this.reloadComponent();
           }
         }
       }
     );
-    this.reloadComponent();
+
   }
 
   addProduct(){
@@ -71,20 +89,43 @@ export class ProductosComponent implements OnInit {
     }
   }
 
-    // //Form
-    // onSubmit(form) {
-    //   console.log("onSubmit");
-    //   var productData : Producto = new Producto();
+  //Form
+  onSubmit(form: any) {
+    console.log("onSubmit");
+    console.log(form)
+    let productData : ProductoDTO = new ProductoDTO();
+    let detalleProducto : DetalleProducto = new DetalleProducto();
 
-    //   productData.name = this.model.name;
-    //   productData.description = this.model.description;
+    detalleProducto.cost = form.value.cost;
+    detalleProducto.impuesto = form.value.impuesto;
+    detalleProducto.material =  form.value.material;
+    detalleProducto.peso =  form.value.peso;
+
+    productData.name = form.value.name
+    productData.description = form.value.description
+    productData.detalleProducto = detalleProducto;
+    productData.proveedorId = form.value.proveedor;
   
-        
-    //   console.log("Objeto partnerData");
-    //   console.log(productData)
-    //   // this.crearProducto(JSON.stringify(productData));
-    //   console.log(form.value);
-    // }
+    console.log("Objeto partnerData");
+    console.log(productData)
+    this.productosService.crearProducto(JSON.stringify(productData)).subscribe(
+      response =>{
+        this.responseMap = response;
+        console.log(this.responseMap)
+        for (const [key, value] of Object.entries(this.responseMap)) {
+          if(key == "message"){
+            this.mostrarToast(value);
+            this.reloadComponent();
+          }
+        }
+      }
+    );
+    console.log(form.value);
+  }
+
+  onChangeSelect(proveedor:any){
+    console.log(proveedor.target.value);
+  }
 
   
   get f() {

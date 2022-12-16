@@ -1,8 +1,7 @@
 package com.francisconicolau.entity.dto;
 
 
-import com.francisconicolau.entity.DetalleProducto;
-import com.francisconicolau.entity.Proveedor;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ProductDTO {
 
@@ -10,9 +9,10 @@ public class ProductDTO {
 
     String description;
 
-    DetalleProducto detalleProducto;
+    @JsonProperty("detalleProducto")
+    DetalleProductoDTO detalleProductoDTO;
 
-    Proveedor proveedor;
+    int proveedorId;
 
     public String getName() {
         return name;
@@ -30,19 +30,29 @@ public class ProductDTO {
         this.description = description;
     }
 
-    public DetalleProducto getDetalleProducto() {
-        return detalleProducto;
+    public DetalleProductoDTO getDetalleProductoDTO() {
+        return detalleProductoDTO;
     }
 
-    public void setDetalleProducto(DetalleProducto detalleProducto) {
-        this.detalleProducto = detalleProducto;
+    public void setDetalleProductoDTO(DetalleProductoDTO detalleProductoDTO) {
+        this.detalleProductoDTO = detalleProductoDTO;
     }
 
-    public Proveedor getProveedor() {
-        return proveedor;
+    public int getProveedorId() {
+        return proveedorId;
     }
 
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
+    public void setProveedorId(int proveedorId) {
+        this.proveedorId = proveedorId;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductDTO{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", detalleProductoDTO=" + detalleProductoDTO +
+                ", proveedorId=" + proveedorId +
+                '}';
     }
 }

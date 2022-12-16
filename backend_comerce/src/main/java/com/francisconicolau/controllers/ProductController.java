@@ -40,7 +40,6 @@ public class ProductController {
     @ApiOperation(value = "Create product")
     public ResponseEntity<?> createProduct(@RequestBody ProductDTO productDTO) {
         try {
-            //TODO: Aqui le tenemos q pasar los Ids de proveedor y detalle(crearlo o no)
             var product = productService.createProduct(productDTO);
 
             mapResponse.put("message",PRODUCT_CREATED);

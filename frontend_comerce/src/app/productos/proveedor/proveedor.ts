@@ -4,5 +4,4 @@ export class Proveedor {
   direccion!:string;
   telefono!:string;
   email!:string;
-
 }

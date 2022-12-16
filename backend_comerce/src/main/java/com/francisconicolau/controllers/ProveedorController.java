@@ -1,8 +1,6 @@
 package com.francisconicolau.controllers;
 
 
-import com.francisconicolau.repository.ProveedorRepository;
-import com.francisconicolau.service.ProductService;
 import com.francisconicolau.service.ProveedorService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -39,6 +37,21 @@ public class ProveedorController {
     public ResponseEntity<?> getAll() {
         try {
             return new ResponseEntity<>(proveedorService.getProveedores(), HttpStatus.OK);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return null;
+        }
+    }
+
+    @GetMapping(value = "/proveedores/{id}")
+    @ApiOperation(value = "Get proveedor")
+    public ResponseEntity<?> getProveedor(@PathVariable @ApiParam(value = "Proveedor's id", required = true) int id) {
+        try {
+            var product = proveedorService.getProveedorById(id);
+            if (product != null){
+                return new ResponseEntity<>(product, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return null;
