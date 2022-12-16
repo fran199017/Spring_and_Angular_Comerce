@@ -23,15 +23,10 @@ export class ProductosService {
     );
   }
 
-  deleteProducto(id : number) {
-    return this.http.delete(this.urlEndPoint + "/" + id ).subscribe({
-      next: data =>{
-        console.log(data)
-      },
-      error : error =>{
-        console.log(error)
-      }
-    });
+  deleteProducto(id : number) : Observable<Map<string, object>> {
+    return this.http.delete(this.urlEndPoint + "/" + id ).pipe(
+      map(response => response as Map<string, object>)
+    );
   }
 
 }
