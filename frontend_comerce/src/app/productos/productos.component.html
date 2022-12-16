@@ -17,10 +17,12 @@
           <td>{{ producto.id }}</td>
           <td>{{ producto.name }}</td>
           <td>{{ producto.description }}</td>
+          <td>{{ producto.proveedor.nombre }}</td>
           <td>
             <a style="color: white; margin: 3px;" class="btn btn-sm btn-primary" (click)="goProduct(producto)">Ver detalle</a>
-            <a style="color: white; margin: 3px;" class="btn btn-sm btn-warning" (click)="goProduct(producto)">Modificar producto</a>
-            <a style="color: white; margin: 3px;" class="btn btn-sm btn-danger" (click)="goProduct(producto)">Borrar producto</a>
+            <a style="color: white; margin: 3px;" class="btn btn-sm btn-primary" >Ver proveedor</a>
+            <a style="color: white; margin: 3px;" class="btn btn-sm btn-warning" >Modificar producto</a>
+            <a style="color: white; margin: 3px;" class="btn btn-sm btn-danger" >Borrar producto</a>
           </td>
             <!-- <td>{{ producto.detalleProducto.id }}</td>
             <td>{{ producto.detalleProducto.material }}</td>

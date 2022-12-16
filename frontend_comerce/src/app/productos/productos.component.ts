@@ -31,7 +31,7 @@ export class ProductosComponent implements OnInit {
       queryParams: {},
     };
 
-    this.router.navigate(["/detalle/" + producto.id], navigationExtras);
+    this.router.navigate(["/detalle/1"], navigationExtras);
   }
 
 }

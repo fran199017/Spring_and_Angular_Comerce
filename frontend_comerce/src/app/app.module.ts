@@ -13,6 +13,7 @@ import { DetalleComponent } from './productos/detalle/detalle.component';
 const routes: Routes = [
   {path: '', redirectTo: '/productos', pathMatch: 'full'},
   {path: 'productos', component: ProductosComponent},
+  {path: 'detalle/1', component: DetalleComponent},
 ];
 
 @NgModule({
