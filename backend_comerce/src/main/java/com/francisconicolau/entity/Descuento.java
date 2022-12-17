@@ -1,19 +1,27 @@
 package com.francisconicolau.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "descuento")
 public class Descuento {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)  //To add prices h2 database
     private int id;
+
+    private String nombre;
 
 
     private int descuento;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
     public int getDescuento() {
         return descuento;
@@ -35,6 +43,7 @@ public class Descuento {
     public String toString() {
         return "Descuento{" +
                 "id=" + id +
+                ", nombre='" + nombre + '\'' +
                 ", descuento=" + descuento +
                 '}';
     }

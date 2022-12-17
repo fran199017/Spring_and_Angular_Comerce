@@ -18,6 +18,8 @@ export class ProductosComponent implements OnInit {
 
   @ViewChild('f') productForm !: NgForm;
 
+  @ViewChild('fDescuento') descuentoForm !: NgForm;
+
   constructor(
     private productosService: ProductosService, 
     private router : Router,
@@ -28,13 +30,18 @@ export class ProductosComponent implements OnInit {
   productos: Producto[] | undefined;
   productoDTO !: ProductoDTO
   proveedores: Proveedor[] | undefined;
+  descuentos: any;
+
   materiales : string[] = ["Tela", "Seda", "Lino", "Pana", "Nylon", "Lycra", "Poliéster" ];
   impuestos : number[] = [0,5,10,21];
   
   responseMap : Map<string, object> = new Map<string, object>
 
-  //Form de creacion de producto
+  //Booleanos mostrar forms
   showForm : boolean = false;
+  showFormDescuento : boolean = false;
+  showTablaDescuentos : boolean = false;
+  showDescuentos : boolean = false;
 
   async ngOnInit() {
     this.proveedorService.getProveedores().subscribe(
@@ -44,6 +51,24 @@ export class ProductosComponent implements OnInit {
     this.productosService.getProductos().subscribe(
       productos =>this.productos = productos
     );
+
+    this.productosService.getDescuentos().subscribe(
+      descuentos =>{
+        this.descuentos = descuentos;
+        if(this.descuentos != null){
+          console.log("Hay descuentos");
+          console.log(this.descuentos);
+        }
+      }
+    );
+  }
+
+  verDescuentos(){
+    if(this.showTablaDescuentos == false){
+      this.showTablaDescuentos = true;
+    }else{
+      this.showTablaDescuentos = false;
+    }
   }
 
   goProduct(id : number){
@@ -80,6 +105,14 @@ export class ProductosComponent implements OnInit {
     }
   }
 
+  crearDescuento(){
+    if(this.showFormDescuento == false){
+      this.showFormDescuento = true;
+    }else{
+      this.showFormDescuento = false;
+    }
+  }
+
   //Form
   onSubmit() {
     console.log("onSubmit");
@@ -106,12 +139,34 @@ export class ProductosComponent implements OnInit {
         for (const [key, value] of Object.entries(this.responseMap)) {
           if(key == "message"){
             this.mostrarToast(value);
-            this.reloadComponent();
           }
         }
       }
     );
   }
+
+    //Form descuento
+    onSubmitDescuento() {
+      console.log("onSubmit");
+      console.log(this.descuentoForm)
+
+  
+      var descuento : number = this.descuentoForm.value.descuento;
+      var nombre : string = this.descuentoForm.value.name;
+      console.log("El descuento a aplicar es de " + descuento)
+      this.productosService.crearDescuento(descuento, nombre).subscribe(response =>{
+        this.responseMap = response;
+        console.log(this.responseMap)
+        for (const [key, value] of Object.entries(this.responseMap)) {
+          if(key == "message"){
+            this.mostrarToast(value);
+            this.reloadComponent();
+          }
+        }
+      }
+    );
+
+    }
 
   onChangeSelect(event:any){
     console.log(event.target.value);

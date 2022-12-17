@@ -36,9 +36,16 @@ public class DescuentoController {
 
     @PostMapping(value = "/descuentos")
     @ApiOperation(value = "Crear descuento")
-    public ResponseEntity<?> createDescuento(int porcentaje) {
+    public ResponseEntity<?> createDescuento(int porcentaje, String nombre) {
         try {
-            return new ResponseEntity<>(descuentoService.createDescuento(porcentaje), HttpStatus.OK);
+            if (porcentaje <= 0){
+                mapResponse.put("message","Descuento no puede ser 0");
+                mapResponse.put("response", HttpStatus.BAD_REQUEST);
+            }
+            descuentoService.createDescuento(porcentaje, nombre);
+            mapResponse.put("message","Descuento creado del " + porcentaje + "%");
+            mapResponse.put("response", HttpStatus.OK);
+            return new ResponseEntity<>(mapResponse, HttpStatus.OK);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return null;

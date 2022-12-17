@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class ProductosService {
   private urlEndPoint: string = 'http://localhost:8080/api/v1/products';
+  private urlDescuentoEndpoint: string = 'http://localhost:8080/api/v1/descuentos';
   
   constructor(private http: HttpClient) { }
 
@@ -35,6 +36,21 @@ export class ProductosService {
     }
     return this.http.post(this.urlEndPoint, productData, httpOptions).pipe(
       map(response => response as Map<string, object>)
+    );
+  }
+
+  crearDescuento(porcentaje: number, nombre:string) : Observable<Map<string, object>> {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    }
+    return this.http.post(this.urlDescuentoEndpoint + "?porcentaje=" + porcentaje + "&nombre=" + nombre, httpOptions).pipe(
+      map(response => response as Map<string, object>)
+    );
+  }
+
+  getDescuentos(): Observable<any> {
+    return this.http.get(this.urlDescuentoEndpoint).pipe(
+      map(response => response)
     );
   }
 

@@ -30,6 +30,8 @@
   </div>
   <div class="card-footer text-muted">
     <button class="btn btn-primary" (click)="addProduct()">Añadir producto</button>
+    <button class="btn btn-primary m-1" (click)="crearDescuento()">Crear descuento</button>
+    <button class="btn btn-primary m-1" (click)="verDescuentos()">Ver descuentos</button>
   </div>
 </div>
 <!-- Formulario de creacion de producto -->
@@ -116,4 +118,63 @@
 
 
   
+</div>
+<!-- Formulario de creacion de descuento -->
+<div class="formulario" *ngIf="showFormDescuento">
+  <form (ngSubmit)="onSubmitDescuento()" #fDescuento="ngForm">
+
+    <div class="grid">
+
+      <div class="form-group">
+        <label for="name">Nombre del descuento </label>
+        <input placeholder="Nombre del descuento" id="name" 
+          class="form-control" 
+          type="text" 
+          ngModel 
+          name="name"
+          #name="ngModel" 
+          required>
+        <span class="help-block" *ngIf="!name.valid && name.touched"> Rellena nombre del descuento</span>
+      </div>
+
+    <div class="form-group">
+      <label for="descuento">Porcentaje de descuento </label>
+      <input placeholder="Porcentaje de descuento" id="descuento" 
+        class="form-control" 
+        type="text" 
+        ngModel 
+        name="descuento"
+        #descuento="ngModel" 
+        required>
+      <span class="help-block" *ngIf="!descuento.valid && descuento.touched"> Rellena el porcentaje de descuento</span>
+    </div>
+
+          
+
+
+  </div>
+    <button [disabled]="!fDescuento.valid" class="btn btn-primary mt-3" type="submit">Guardar formulario</button>
+  </form>
+</div>
+
+<!-- Ver descuentos y aplicar-->
+<div class="formulario" *ngIf="showTablaDescuentos">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Porcentaje</th>
+        <th>Aplicar a</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let descuento of descuentos">
+        <td>{{ descuento.nombre }}</td>
+        <td>{{ descuento.descuento }} %</td>
+        <td>
+          <a style="color: white; margin: 3px;" class="btn btn-sm btn-info">Aplicar descuento</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

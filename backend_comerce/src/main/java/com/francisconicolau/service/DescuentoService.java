@@ -28,9 +28,10 @@ public class DescuentoService {
         return null;
     }
 
-    public Descuento createDescuento(int porcentaje){
+    public Descuento createDescuento(int porcentaje, String nombre){
         var descuento = new Descuento();
         descuento.setDescuento(porcentaje);
+        descuento.setNombre(nombre);
         return descuentoRepository.save(descuento);
     }
 
