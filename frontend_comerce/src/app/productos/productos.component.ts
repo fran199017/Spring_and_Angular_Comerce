@@ -31,6 +31,7 @@ export class ProductosComponent implements OnInit {
   productoDTO !: ProductoDTO
   proveedores: Proveedor[] | undefined;
   descuentos: any;
+  detalleProductoId !: number;
 
   materiales : string[] = ["Tela", "Seda", "Lino", "Pana", "Nylon", "Lycra", "Poliéster" ];
   impuestos : number[] = [0,5,10,21];
@@ -41,7 +42,6 @@ export class ProductosComponent implements OnInit {
   showForm : boolean = false;
   showFormDescuento : boolean = false;
   showTablaDescuentos : boolean = false;
-  showDescuentos : boolean = false;
 
   async ngOnInit() {
     this.proveedorService.getProveedores().subscribe(
@@ -113,6 +113,23 @@ export class ProductosComponent implements OnInit {
     }
   }
 
+  aplicarDescuento(idDetalleProducto: number, idDescuento : number){
+    console.log("vamos a aplicar descuento a");
+    console.log(idDetalleProducto);
+    this.productosService.aplicarDescuento(idDetalleProducto, idDescuento).subscribe(
+      response =>{
+        this.responseMap = response;
+        console.log(this.responseMap)
+        for (const [key, value] of Object.entries(this.responseMap)) {
+          if(key == "message"){
+            this.mostrarToast(value);
+            this.reloadComponent();
+          }
+        }
+      }
+    );
+  }
+
   //Form
   onSubmit() {
     console.log("onSubmit");
@@ -120,7 +137,7 @@ export class ProductosComponent implements OnInit {
     let productData : ProductoDTO = new ProductoDTO();
     let detalleProducto : DetalleProducto = new DetalleProducto();
 
-    detalleProducto.cost = this.productForm.value.cost;
+    detalleProducto.cost = this.productForm.value.coste;
     detalleProducto.impuesto = this.productForm.value.impuesto;
     detalleProducto.material =  this.productForm.value.material;
     detalleProducto.peso =  this.productForm.value.peso;
@@ -139,6 +156,7 @@ export class ProductosComponent implements OnInit {
         for (const [key, value] of Object.entries(this.responseMap)) {
           if(key == "message"){
             this.mostrarToast(value);
+            this.reloadComponent();
           }
         }
       }
@@ -170,6 +188,10 @@ export class ProductosComponent implements OnInit {
 
   onChangeSelect(event:any){
     console.log(event.target.value);
+  }
+
+  onChangeDetalle(event:any){
+    this.detalleProductoId =  Number(event.target.value);
   }
 
   //Reload same URL.

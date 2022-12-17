@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 export class ProductosService {
   private urlEndPoint: string = 'http://localhost:8080/api/v1/products';
   private urlDescuentoEndpoint: string = 'http://localhost:8080/api/v1/descuentos';
+  private urlDetalleProducto: string = 'http://localhost:8080/api/v1/detalleproducto/';
   
   constructor(private http: HttpClient) { }
 
@@ -51,6 +52,15 @@ export class ProductosService {
   getDescuentos(): Observable<any> {
     return this.http.get(this.urlDescuentoEndpoint).pipe(
       map(response => response)
+    );
+  }
+
+  aplicarDescuento(idDetalle : number, descuentoId : number): Observable<Map<string, object>> {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    }
+    return this.http.post(this.urlDetalleProducto + idDetalle + "/creardescuento?descuentoId=" + descuentoId, httpOptions).pipe(
+      map(response => response as Map<string, object>)
     );
   }
 

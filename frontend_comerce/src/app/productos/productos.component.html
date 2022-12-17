@@ -10,6 +10,7 @@
           <th>nombre</th>
           <th>Descripción</th>
           <th>Proveedor</th>
+          <th>Precio</th>
           <th style="width: 400px;">Acción</th>
         </tr>
       </thead>
@@ -19,6 +20,7 @@
           <td>{{ producto.name }}</td>
           <td>{{ producto.description }}</td>
           <td>{{ producto.proveedor.nombre }}</td>
+          <td>{{ producto.detalleProducto.cost }}</td>
           <td>
             <a style="color: white; margin: 3px;" class="btn btn-sm btn-info" (click)="goProduct(producto.id)">Ver detalle</a>
             <a style="color: white; margin: 3px;" class="btn btn-sm btn-warning" >Modificar producto</a>
@@ -172,7 +174,12 @@
         <td>{{ descuento.nombre }}</td>
         <td>{{ descuento.descuento }} %</td>
         <td>
-          <a style="color: white; margin: 3px;" class="btn btn-sm btn-info">Aplicar descuento</a>
+          <div class="grid">
+            <select ngModel (change)="onChangeDetalle($event)" class="form-select" aria-label="Default select example" required>
+              <option value="{{producto.detalleProducto.id}}" *ngFor="let producto of productos">{{producto.name}}</option>
+            </select>
+            <a style="color: white; margin: 3px;" class="btn btn-sm btn-info" (click)="aplicarDescuento(detalleProductoId, descuento.id)">Aplicar descuento</a>
+          </div>
         </td>
       </tr>
     </tbody>
