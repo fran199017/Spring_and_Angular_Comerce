@@ -32,47 +32,86 @@
     <button class="btn btn-primary" (click)="addProduct()">Añadir producto</button>
   </div>
 </div>
+<!-- Formulario de creacion de producto -->
 <div class="formulario" *ngIf="showForm">
 
-    <form [formGroup]="productDataForm" (ngSubmit)="onSubmit(productDataForm)">
+    <form (ngSubmit)="onSubmit()" #f="ngForm">
       <div class="grid">
       <div class="form-group">
         <label for="name">Nombre </label>
-        <input class="form-control" id="name" type="text" formControlName="name" >
+        <input placeholder="Camiseta" id="name" 
+          class="form-control" 
+          type="text" 
+          ngModel 
+          name="name"
+          #name="ngModel" 
+          required>
+        <span class="help-block" *ngIf="!name.valid && name.touched"> Rellena el campo nombre</span>
       </div>
-  
+
       <div class="form-group">
         <label for="description">Descripción </label>
-        <input class="form-control" id="description" type="text" formControlName="description">
+        <input placeholder="Es una camiseta blanca con lunares" id="description" 
+          class="form-control" 
+          type="text" 
+          ngModel 
+          name="description"
+          #description="ngModel" 
+          required>
+        <span class="help-block" *ngIf="!description.valid && description.touched"> Rellena el campo descripción</span>
       </div>
-  
+
       <div class="form-group">
         <label for="material">Material </label>
-        <input class="form-control" id="material" type="text" formControlName="material">
+        <select ngModel #material="ngModel" name="material" (change)="onChangeSelectMaterial($event)" class="form-select" aria-label="Default select example" required>
+          <option value="{{material}}" *ngFor="let material of materiales">{{material}}</option>
+        </select>
+        <span class="help-block" *ngIf="!material.valid && material.touched"> Escoge un material</span>
       </div>
-  
+
       <div class="form-group">
-        <label for="peso">Peso </label>
-        <input class="form-control" id="peso" type="text" formControlName="peso">
+        <label for="peso">Peso</label>
+        <input placeholder="2.05" id="peso" 
+          class="form-control" 
+          type="number" 
+          ngModel 
+          name="peso"
+          #peso="ngModel" 
+          required>
+        <span class="help-block" *ngIf="!peso.valid && peso.touched"> Rellena el campo peso</span>
       </div>
-  
+
       <div class="form-group">
-        <label for="cost">Coste </label>
-        <input class="form-control" id="cost" type="text" formControlName="cost">
+        <label for="coste">Coste</label>
+        <input id="coste" 
+          placeholder="9.99"
+          class="form-control" 
+          type="number" 
+          ngModel 
+          name="coste"
+          #coste="ngModel" 
+          required>
+        <span class="help-block" *ngIf="!coste.valid && coste.touched"> Rellena el campo coste</span>
       </div>
-  
+
       <div class="form-group">
         <label for="impuesto">Impuesto </label>
-        <input class="form-control" id="impuesto" type="text" formControlName="impuesto">
-      </div>
-  
-      <div class="form-group">
-        <select formControlName="proveedor" (change)="onChangeSelect($event)" class="form-select" aria-label="Default select example">
-          <option value="{{proveedor.id}}" *ngFor="let proveedor of proveedores" selected>{{proveedor.nombre}}</option>
+        <select ngModel #impuesto="ngModel" name="impuesto" (change)="onChangeSelect($event)" class="form-select" aria-label="Default select example" required>
+          <option value="{{impuesto}}" *ngFor="let impuesto of impuestos">{{impuesto}}</option>
         </select>
+        <span class="help-block" *ngIf="!impuesto.valid && impuesto.touched"> Escoge un impuesto para el producto</span>
       </div>
+
+      <div class="form-group">
+        <label for="description">Proveedor </label>
+        <select ngModel #proveedor="ngModel" name="proveedor" (change)="onChangeSelect($event)" class="form-select" aria-label="Default select example" required>
+          <option value="{{proveedor.id}}" *ngFor="let proveedor of proveedores">{{proveedor.nombre}}</option>
+        </select>
+        <span class="help-block" *ngIf="!proveedor.valid && proveedor.touched"> Escoge un proveedor</span>
+      </div>
+
     </div>
-      <button class="btn btn-primary mt-3" type="submit">Guardar formulario</button>
+      <button [disabled]="!f.valid" class="btn btn-primary mt-3" type="submit">Guardar formulario</button>
     </form>
 
 
