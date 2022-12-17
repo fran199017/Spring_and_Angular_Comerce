@@ -4,6 +4,7 @@ CREATE TABLE detalle_producto (
 	PESO            FLOAT NOT NULL,
 	COST            FLOAT NOT NULL,
     IMPUESTO        INTEGER NOT NULL,
+    OFERTA_ID       INTEGER NULL,
 	PRIMARY KEY (ID)
 );
 

@@ -113,12 +113,8 @@ export class ProductosComponent implements OnInit {
     );
   }
 
-  onChangeSelect(proveedor:any){
-    console.log(proveedor.target.value);
-  }
-
-  onChangeSelectMaterial(material:any){
-    console.log(material.target.value);
+  onChangeSelect(event:any){
+    console.log(event.target.value);
   }
 
   //Reload same URL.

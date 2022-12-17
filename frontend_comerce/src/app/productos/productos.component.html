@@ -63,7 +63,7 @@
 
       <div class="form-group">
         <label for="material">Material </label>
-        <select ngModel #material="ngModel" name="material" (change)="onChangeSelectMaterial($event)" class="form-select" aria-label="Default select example" required>
+        <select ngModel #material="ngModel" name="material" (change)="onChangeSelect($event)" class="form-select" aria-label="Default select example" required>
           <option value="{{material}}" *ngFor="let material of materiales">{{material}}</option>
         </select>
         <span class="help-block" *ngIf="!material.valid && material.touched"> Escoge un material</span>
@@ -78,7 +78,7 @@
           name="peso"
           #peso="ngModel" 
           required>
-        <span class="help-block" *ngIf="!peso.valid && peso.touched"> Rellena el campo peso</span>
+        <span class="help-block" *ngIf="!peso.valid && peso.touched">Rellena el campo peso</span>
       </div>
 
       <div class="form-group">

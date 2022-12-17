@@ -1,7 +1,6 @@
 package com.francisconicolau.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 
@@ -21,6 +20,18 @@ public class DetalleProducto {
     private float cost;
 
     private int impuesto;
+
+    @ManyToOne
+    @JoinColumn(name = "OFERTA_ID")
+    private Descuento descuento;
+
+    public void setOferta(Descuento descuento) {
+        this.descuento = descuento;
+    }
+
+    public Descuento getOferta() {
+        return descuento;
+    }
 
     public int getId() {
         return id;
@@ -62,6 +73,14 @@ public class DetalleProducto {
         this.impuesto = impuesto;
     }
 
+    public Descuento getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(Descuento descuento) {
+        this.descuento = descuento;
+    }
+
     @Override
     public String toString() {
         return "DetalleProducto{" +
@@ -70,6 +89,7 @@ public class DetalleProducto {
                 ", peso=" + peso +
                 ", cost=" + cost +
                 ", impuesto=" + impuesto +
+                ", descuento=" + descuento +
                 '}';
     }
 }
