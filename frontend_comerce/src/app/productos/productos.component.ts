@@ -50,7 +50,11 @@ export class ProductosComponent implements OnInit {
 
     this.productosService.getProductos().subscribe(
       productos =>{this.productos = productos
-      console.log(productos)}
+      console.log(productos)
+      this.roundResults(productos);
+     
+    }
+
     );
 
     this.productosService.getDescuentos().subscribe(
@@ -62,6 +66,12 @@ export class ProductosComponent implements OnInit {
         }
       }
     );
+  }
+
+  roundResults(productos : Producto[]){
+    for(let producto of productos){
+      producto.detalleProducto.finalCost =  Number(producto.detalleProducto.finalCost.toFixed(2));
+     }
   }
 
   verDescuentos(){
