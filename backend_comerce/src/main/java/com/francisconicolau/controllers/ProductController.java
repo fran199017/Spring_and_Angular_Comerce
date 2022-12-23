@@ -25,7 +25,6 @@ public class ProductController {
     private static final Logger log = LoggerFactory.getLogger(ProductController.class);
 
     private static final String DELETE_SUCCESFULL ="delete successfull";
-    private static final String ERROR_CREATING ="Error creating product";
     private static final String PRODUCT_CREATED ="Product created";
 
     private Map<String, Object> mapResponse = new HashMap<>();

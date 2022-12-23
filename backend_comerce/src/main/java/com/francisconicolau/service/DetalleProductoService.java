@@ -36,24 +36,36 @@ public class DetalleProductoService {
 
     public DetalleProducto createDetalleProducto(DetalleProductoDTO detalleProductoDTO){
         var detalleProducto = new DetalleProducto();
-        detalleProducto.setCost(detalleProductoDTO.getCost());
+        var iva = detalleProductoDTO.getImpuesto();
+        var coste = detalleProductoDTO.getCost();
+        float costeTotal = calcularIVA(coste,iva);
+        detalleProducto.setCost(coste);
         detalleProducto.setImpuesto(detalleProductoDTO.getImpuesto());
         detalleProducto.setMaterial(detalleProductoDTO.getMaterial());
         detalleProducto.setPeso(detalleProductoDTO.getPeso());
+        detalleProducto.setFinalCost(costeTotal);
+        detalleProducto.setDiscount(false);
+
         return detalleProductoRepository.save(detalleProducto);
     }
+
 
     public DetalleProducto crearDescuentoEnDetalle(int id, int descuentoId) {
         var detalleProductoOpt = detalleProductoRepository.findById(id);
         if (detalleProductoOpt.isPresent()){
             var detalleProducto = detalleProductoOpt.get();
-            var descuentoOpt = descuentoRepository.findById(descuentoId);
-            if (descuentoOpt.isPresent()){
-                var descuento = descuentoOpt.get();
-                detalleProducto.setDescuento(descuento);
-                var nuevoCoste = aplicarDescuento(detalleProducto.getCost(), descuento.getDescuento());
-                detalleProducto.setCost(nuevoCoste);
-                return detalleProductoRepository.save(detalleProducto);
+            var isDiscount = detalleProducto.isDiscount();
+            if (!isDiscount){
+                var descuentoOpt = descuentoRepository.findById(descuentoId);
+                if (descuentoOpt.isPresent()){
+                    var descuento = descuentoOpt.get();
+                    detalleProducto.setDescuento(descuento);
+                    var nuevoCoste = aplicarDescuento(detalleProducto.getFinalCost(), descuento.getDescuento());
+                    detalleProducto.setFinalCost(nuevoCoste);
+                    detalleProducto.setDiscount(true);
+                    return detalleProductoRepository.save(detalleProducto);
+            }
+            return null;
             }
         }
         return null;
@@ -64,5 +76,13 @@ public class DetalleProductoService {
             return cost;
         }
         return cost - ((cost / 100) * descuento);
+    }
+
+
+    private float calcularIVA(float coste, int iva) {
+        if (iva >0){
+            return coste + ((coste / 100) * iva);
+        }
+        return coste;
     }
 }

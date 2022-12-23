@@ -49,7 +49,8 @@ export class ProductosComponent implements OnInit {
       );
 
     this.productosService.getProductos().subscribe(
-      productos =>this.productos = productos
+      productos =>{this.productos = productos
+      console.log(productos)}
     );
 
     this.productosService.getDescuentos().subscribe(
@@ -64,8 +65,10 @@ export class ProductosComponent implements OnInit {
   }
 
   verDescuentos(){
-    if(this.showTablaDescuentos == false){
+    if(!this.showTablaDescuentos){
       this.showTablaDescuentos = true;
+      this.showForm = false;
+      this.showFormDescuento = false;
     }else{
       this.showTablaDescuentos = false;
     }
@@ -100,6 +103,8 @@ export class ProductosComponent implements OnInit {
   addProduct(){
     if(this.showForm == false){
       this.showForm = true;
+      this.showTablaDescuentos = false;
+      this.showFormDescuento = false;
     }else{
       this.showForm = false;
     }
@@ -108,6 +113,8 @@ export class ProductosComponent implements OnInit {
   crearDescuento(){
     if(this.showFormDescuento == false){
       this.showFormDescuento = true;
+      this.showForm = false;
+      this.showTablaDescuentos = false;
     }else{
       this.showFormDescuento = false;
     }

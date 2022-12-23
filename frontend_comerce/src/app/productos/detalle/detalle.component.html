@@ -13,8 +13,11 @@
         <h5 class="card-title">Id: {{producto.detalleProducto.id}}</h5>
         <p class="card-text">Peso: {{producto.detalleProducto.peso}}</p> 
         <p class="card-text">Material: {{producto.detalleProducto.material}}</p> 
-        <p class="card-text">Impuesto: {{producto.detalleProducto.impuesto}}</p> 
-        <p class="card-text">Coste: {{producto.detalleProducto.cost}}</p> 
+        <p class="card-text">IVA: {{producto.detalleProducto.impuesto}} %</p> 
+        <p class="card-text">Coste base: {{producto.detalleProducto.cost}} €</p>
+        <p *ngIf="producto.detalleProducto.discount" class="card-text">Con descuento aplicado</p>
+        <p *ngIf="!producto.detalleProducto.discount" class="card-text">Sin descuento</p>
+        <p class="card-text">Coste final: {{producto.detalleProducto.finalCost}} €</p>  
     </div>
   </div>
 

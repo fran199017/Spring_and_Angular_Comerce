@@ -23,7 +23,7 @@ public class DescuentoController {
 
     private static final Logger log = LoggerFactory.getLogger(DescuentoController.class);
 
-    private static final String DELETE_SUCCESFULL ="delete successfull";
+    private static final String DESCUENTO_CREADO ="Descuento creado";
 
     private Map<String, Object> mapResponse = new HashMap<>();
     private DescuentoService descuentoService;
@@ -43,7 +43,7 @@ public class DescuentoController {
                 mapResponse.put("response", HttpStatus.BAD_REQUEST);
             }
             descuentoService.createDescuento(porcentaje, nombre);
-            mapResponse.put("message","Descuento creado del " + porcentaje + "%");
+            mapResponse.put("message", DESCUENTO_CREADO);
             mapResponse.put("response", HttpStatus.OK);
             return new ResponseEntity<>(mapResponse, HttpStatus.OK);
         } catch (Exception e) {

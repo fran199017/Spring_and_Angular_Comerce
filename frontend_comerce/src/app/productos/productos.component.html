@@ -10,7 +10,11 @@
           <th>nombre</th>
           <th>Descripción</th>
           <th>Proveedor</th>
-          <th>Precio</th>
+          <th>Precio base</th>
+          <th>IVA</th>
+          <th>Descuento aplicado</th>
+          <th>Coste final</th>
+          
           <th style="width: 400px;">Acción</th>
         </tr>
       </thead>
@@ -20,7 +24,11 @@
           <td>{{ producto.name }}</td>
           <td>{{ producto.description }}</td>
           <td>{{ producto.proveedor.nombre }}</td>
-          <td>{{ producto.detalleProducto.cost }}</td>
+          <td>{{ producto.detalleProducto.cost }} €</td>
+          <td>{{ producto.detalleProducto.impuesto }} %</td>
+          <td *ngIf="producto.detalleProducto.discount">Aplicado descuento</td>
+          <td *ngIf="!producto.detalleProducto.discount">Sin descuento</td>
+          <td>{{ producto.detalleProducto.finalCost }} €</td>
           <td>
             <a style="color: white; margin: 3px;" class="btn btn-sm btn-info" (click)="goProduct(producto.id)">Ver detalle</a>
             <a style="color: white; margin: 3px;" class="btn btn-sm btn-warning" >Modificar producto</a>
@@ -184,4 +192,9 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+<!-- No hay descuentos -->
+<div class="formulario" *ngIf="!showTablaDescuentos">
+  No hay descuentos, vaya a la pestaña Crear descuento y cree uno.
 </div>

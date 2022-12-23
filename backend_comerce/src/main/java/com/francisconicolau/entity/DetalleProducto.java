@@ -19,11 +19,33 @@ public class DetalleProducto {
 
     private float cost;
 
+    @Column(name = "FINAL_COST")
+    private float finalCost;
+
+    @Column(name = "IS_DISCOUNT")
+    private boolean isDiscount;
+
     private int impuesto;
 
     @ManyToOne
     @JoinColumn(name = "OFERTA_ID")
     private Descuento descuento;
+
+    public boolean isDiscount() {
+        return isDiscount;
+    }
+
+    public void setDiscount(boolean discount) {
+        isDiscount = discount;
+    }
+
+    public float getFinalCost() {
+        return finalCost;
+    }
+
+    public void setFinalCost(float finalCost) {
+        this.finalCost = finalCost;
+    }
 
     public void setOferta(Descuento descuento) {
         this.descuento = descuento;
@@ -88,8 +110,10 @@ public class DetalleProducto {
                 ", material='" + material + '\'' +
                 ", peso=" + peso +
                 ", cost=" + cost +
+                ", finalCost=" + finalCost +
                 ", impuesto=" + impuesto +
                 ", descuento=" + descuento +
+                ", isDiscount=" + isDiscount +
                 '}';
     }
 }
