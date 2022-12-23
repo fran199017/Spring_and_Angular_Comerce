@@ -174,8 +174,6 @@ export class ProductosComponent implements OnInit {
     onSubmitDescuento() {
       console.log("onSubmit");
       console.log(this.descuentoForm)
-
-  
       var descuento : number = this.descuentoForm.value.descuento;
       var nombre : string = this.descuentoForm.value.name;
       console.log("El descuento a aplicar es de " + descuento)
@@ -189,6 +187,7 @@ export class ProductosComponent implements OnInit {
           }
         }
       }
+
     );
 
     }

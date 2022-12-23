@@ -1,4 +1,4 @@
-<div class="card border-primary mb-3">
+<div style="width:1420px" class="card border-primary mb-3">
   <div class="card-header">Productos</div>
   <div class="card-body text-primary">
     <h5 class="card-title">Listado de productos</h5>
@@ -8,11 +8,11 @@
         <tr>
           <th>id</th>
           <th>nombre</th>
-          <th>Descripción</th>
+          <th style="min-width: 210px;">Descripción</th>
           <th>Proveedor</th>
           <th>Precio base</th>
-          <th>IVA</th>
-          <th>Descuento aplicado</th>
+          <th style="min-width: 70px;">IVA</th>
+          <th style="min-width: 300px;">Descuento aplicado</th>
           <th>Coste final</th>
           
           <th style="width: 400px;">Acción</th>
@@ -26,8 +26,8 @@
           <td>{{ producto.proveedor.nombre }}</td>
           <td>{{ producto.detalleProducto.cost }} €</td>
           <td>{{ producto.detalleProducto.impuesto }} %</td>
-          <td *ngIf="producto.detalleProducto.discount">Aplicado descuento</td>
-          <td *ngIf="!producto.detalleProducto.discount">Sin descuento</td>
+          <td style="background-color: #2fff2f24;" *ngIf="producto.detalleProducto.discount">{{producto.detalleProducto.oferta.nombre}} del {{producto.detalleProducto.oferta.descuento}} %</td>
+          <td style="background-color: #ff00001c;" *ngIf="!producto.detalleProducto.discount">Sin descuento</td>
           <td>{{ producto.detalleProducto.finalCost }} €</td>
           <td>
             <a style="color: white; margin: 3px;" class="btn btn-sm btn-info" (click)="goProduct(producto.id)">Ver detalle</a>
@@ -184,7 +184,7 @@
         <td>
           <div class="grid">
             <select ngModel (change)="onChangeDetalle($event)" class="form-select" aria-label="Default select example" required>
-              <option value="{{producto.detalleProducto.id}}" *ngFor="let producto of productos">{{producto.name}}</option>
+              <option  value="{{producto.detalleProducto.id}}" *ngFor="let producto of productos">{{producto.name}}</option>
             </select>
             <a style="color: white; margin: 3px;" class="btn btn-sm btn-info" (click)="aplicarDescuento(detalleProductoId, descuento.id)">Aplicar descuento</a>
           </div>

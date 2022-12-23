@@ -1,3 +1,5 @@
+import { Oferta } from "./oferta";
+
 export class DetalleProducto {
   id!: number;
   material!: string;
@@ -6,4 +8,5 @@ export class DetalleProducto {
   finalCost!: number;
   discount !: boolean;
   impuesto!: number;
+  oferta !: Oferta;
 }
